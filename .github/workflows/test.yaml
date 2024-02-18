@@ -21,12 +21,13 @@ jobs:
             key: ${{ runner.os }}
 
       - name: Print 1
-        run: ls cache/
+        run: ls -la cache/
         
       - name: Gen random
         run: 
           NUM=$(node rand.js)
+          echo NUM=$NUM
           touch cache/$NUM
 
       - name: Print 2
-        run: ls cache/
+        run: ls -la cache/
