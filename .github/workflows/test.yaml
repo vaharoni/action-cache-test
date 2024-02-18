@@ -18,7 +18,9 @@ jobs:
         id: cache
         with:
             path: cache/*
-            key: ${{ runner.os }}
+            key: ${{ runner.os }}-${{ github.run_id }}
+            restore-keys: |
+              ${{ runner.os }}-
 
       - name: Print 1
         run: ls -la cache/
