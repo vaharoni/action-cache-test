@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: cache
+        with:
+            path: cache
+            key: ${{ runner.os }}
+
+      - name: Print 1
+        run: ls cache/
+        
+      - name: Gen random
+        run: 
+          NUM=$(node rand.js)
+          touch cache/$NUM
+
+      - name: Print 2
+        run: ls cache/
