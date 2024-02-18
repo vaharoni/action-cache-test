@@ -24,7 +24,7 @@ jobs:
         run: ls -la cache/
         
       - name: Gen random
-        run: 
+        run: |
           NUM=$(node rand.js)
           echo NUM=$NUM
           touch cache/$NUM
