@@ -37,9 +37,9 @@ jobs:
           path: |
             .yarn/**
             node_modules/**
-          key: ${{ runner.os }}-${{ github.run_id }}
+          key: v2-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-
+            v2-${{ runner.os }}-
 
       - name: Print post cache
         run: |
