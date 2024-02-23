@@ -15,6 +15,9 @@ jobs:
 
       - name: Print pre cache
         run: |
+          echo Version
+          cat version
+          echo
           echo Files in root
           ls -la
           echo
@@ -32,6 +35,9 @@ jobs:
 
       - name: Print post cache
         run: |
+          echo Version
+          cat version
+          echo
           echo Files in root
           ls -la
           echo
@@ -46,6 +52,9 @@ jobs:
 
       - name: Print post random
         run: |
+          echo Version
+          cat version
+          echo
           echo Files in root
           ls -la
           echo
