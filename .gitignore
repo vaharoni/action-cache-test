@@ -1,0 +1,16 @@
+**/.DS_Store
+**/node_modules
+.idea
+.vscode
+**/.env
+**/.env.local
+tmp/
+.yarn/install-state.gz
+.DS_Store
+.yarn/cache
+.yarn/plugins
+.yarn/install-state.gz
+.python-version
+__pycache__/
+**/venv/
+extPkgTree/

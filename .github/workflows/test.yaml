@@ -22,16 +22,24 @@ jobs:
           ls -la
           echo
           echo Files in cache
-          ls -la cache
+          ls -la .yarn/cache
+          echo
+          echo Files in .yarn
+          ls -la .yarn/
+          echo
+          echo Files in .devops
+          ls -la .devops
 
       - name: Restore from cache
         uses: actions/cache/restore@v4
         id: load-cache
         with:
-            path: cache/**
-            key: ${{ runner.os }}-${{ github.run_id }}
-            restore-keys: |
-              ${{ runner.os }}-
+          path: |
+            .yarn/**
+            node_modules/**
+          key: ${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-
 
       - name: Print post cache
         run: |
@@ -42,13 +50,21 @@ jobs:
           ls -la
           echo
           echo Files in cache
-          ls -la cache
+          ls -la .yarn/cache
+          echo
+          echo Files in .yarn
+          ls -la .yarn/
+          echo
+          echo Files in .devops
+          ls -la .devops
         
       - name: Gen random
         run: |
           NUM=$(node rand.js)
           echo NUM=$NUM
-          touch cache/$NUM
+          touch .yarn/cache/$NUM
+          echo $NUM >> .yarn/install-state.gz
+          echo $NUM >> .devops/somefile
 
       - name: Print post random
         run: |
@@ -59,13 +75,21 @@ jobs:
           ls -la
           echo
           echo Files in cache
-          ls -la cache
+          ls -la .yarn/cache
+          echo
+          echo Files in .yarn
+          ls -la .yarn/
+          echo
+          echo Files in .devops
+          ls -la .devops
 
       - name: Save cache
         uses: actions/cache/save@v4
         if: steps.load-cache.outputs.cache-hit != 'true'
         id: save-cache
         with:
-            path: cache/**
-            key: ${{ steps.load-cache.outputs.cache-primary-key }}          
+          path: |
+            .yarn/**
+            node_modules/**
+          key: ${{ steps.load-cache.outputs.cache-primary-key }}          
   
