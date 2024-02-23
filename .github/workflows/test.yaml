@@ -34,6 +34,9 @@ jobs:
           echo
           echo Files in .devops
           ls -la .devops
+          echo
+          echo Files in node_modules
+          ls -la node_modules
 
       - name: Restore from cache
         uses: actions/cache/restore@v4
@@ -62,6 +65,9 @@ jobs:
           echo
           echo Files in .devops
           ls -la .devops
+          echo
+          echo Files in node_modules
+          ls -la node_modules
         
       - name: Gen random
         run: |
@@ -88,6 +94,9 @@ jobs:
           echo
           echo Files in .devops
           ls -la .devops
+          echo
+          echo Files in node_modules
+          ls -la node_modules
 
       - name: Save cache
         uses: actions/cache/save@v4
