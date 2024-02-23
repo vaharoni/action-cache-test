@@ -13,17 +13,30 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        id: cache
+      - name: Print pre cache
+        run: |
+          echo Files in root
+          ls -la
+          echo
+          echo Files in cache
+          ls -la cache
+
+      - name: Restore from cache
+        uses: actions/cache/restore@v4
+        id: load-cache
         with:
-            path: cache/*
+            path: cache/**
             key: ${{ runner.os }}-${{ github.run_id }}
             restore-keys: |
               ${{ runner.os }}-
 
-      - name: Print 1
-        run: ls -la cache/
+      - name: Print post cache
+        run: |
+          echo Files in root
+          ls -la
+          echo
+          echo Files in cache
+          ls -la cache
         
       - name: Gen random
         run: |
@@ -31,5 +44,19 @@ jobs:
           echo NUM=$NUM
           touch cache/$NUM
 
-      - name: Print 2
-        run: ls -la cache/
+      - name: Print post random
+        run: |
+          echo Files in root
+          ls -la
+          echo
+          echo Files in cache
+          ls -la cache
+
+      - name: Save cache
+        uses: actions/cache/save@v4
+        if: steps.load-cache.outputs.cache-hit != 'true'
+        id: save-cache
+        with:
+            path: cache/**
+            key: ${{ steps.load-cache.outputs.cache-primary-key }}          
+  
