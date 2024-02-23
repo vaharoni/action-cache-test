@@ -13,6 +13,11 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Create ignored dir
+        run: |
+          mkdir -p .yarn/cache
+          mkdir -p node_modules
+
       - name: Print pre cache
         run: |
           echo Version
@@ -63,6 +68,7 @@ jobs:
           NUM=$(node rand.js)
           echo NUM=$NUM
           touch .yarn/cache/$NUM
+          touch node_modules/$NUM
           echo $NUM >> .yarn/install-state.gz
           echo $NUM >> .devops/somefile
 
