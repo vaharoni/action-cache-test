@@ -13,98 +13,107 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Create ignored dir
-        run: |
-          mkdir -p .yarn/cache
-          mkdir -p node_modules
-
-      - name: Print pre cache
-        run: |
-          echo Version
-          cat version
-          echo
-          echo Files in root
-          ls -la
-          echo
-          echo Files in cache
-          ls -la .yarn/cache
-          echo
-          echo Files in .yarn
-          ls -la .yarn/
-          echo
-          echo Files in .devops
-          ls -la .devops
-          echo
-          echo Files in node_modules
-          ls -la node_modules
-
-      - name: Restore from cache
-        uses: actions/cache/restore@v4
-        id: load-cache
+      - uses: actions/setup-node@v4
         with:
-          path: |
-            .yarn/**
-            node_modules/**
-          key: v2-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: |
-            v2-${{ runner.os }}-
+          node-version: 21
 
-      - name: Print post cache
+      - name: debug_print
         run: |
-          echo Version
-          cat version
-          echo
-          echo Files in root
-          ls -la
-          echo
-          echo Files in cache
-          ls -la .yarn/cache
-          echo
-          echo Files in .yarn
-          ls -la .yarn/
-          echo
-          echo Files in .devops
-          ls -la .devops
-          echo
-          echo Files in node_modules
-          ls -la node_modules
+          yarn --version
+
+
+      # - name: Create ignored dir
+      #   run: |
+      #     mkdir -p .yarn/cache
+      #     mkdir -p node_modules
+
+      # - name: Print pre cache
+      #   run: |
+      #     echo Version
+      #     cat version
+      #     echo
+      #     echo Files in root
+      #     ls -la
+      #     echo
+      #     echo Files in cache
+      #     ls -la .yarn/cache
+      #     echo
+      #     echo Files in .yarn
+      #     ls -la .yarn/
+      #     echo
+      #     echo Files in .devops
+      #     ls -la .devops
+      #     echo
+      #     echo Files in node_modules
+      #     ls -la node_modules
+
+      # - name: Restore from cache
+      #   uses: actions/cache/restore@v4
+      #   id: load-cache
+      #   with:
+      #     path: |
+      #       .yarn/**
+      #       node_modules/**
+      #     key: v2-${{ runner.os }}-${{ github.run_id }}
+      #     restore-keys: |
+      #       v2-${{ runner.os }}-
+
+      # - name: Print post cache
+      #   run: |
+      #     echo Version
+      #     cat version
+      #     echo
+      #     echo Files in root
+      #     ls -la
+      #     echo
+      #     echo Files in cache
+      #     ls -la .yarn/cache
+      #     echo
+      #     echo Files in .yarn
+      #     ls -la .yarn/
+      #     echo
+      #     echo Files in .devops
+      #     ls -la .devops
+      #     echo
+      #     echo Files in node_modules
+      #     ls -la node_modules
         
-      - name: Gen random
-        run: |
-          NUM=$(node rand.js)
-          echo NUM=$NUM
-          touch .yarn/cache/$NUM
-          touch node_modules/$NUM
-          echo $NUM >> .yarn/install-state.gz
-          echo $NUM >> .devops/somefile
+      # - name: Gen random
+      #   run: |
+      #     NUM=$(node rand.js)
+      #     echo NUM=$NUM
+      #     touch .yarn/cache/$NUM
+      #     touch node_modules/$NUM
+      #     echo $NUM >> .yarn/install-state.gz
+      #     echo $NUM >> .devops/somefile
 
-      - name: Print post random
-        run: |
-          echo Version
-          cat version
-          echo
-          echo Files in root
-          ls -la
-          echo
-          echo Files in cache
-          ls -la .yarn/cache
-          echo
-          echo Files in .yarn
-          ls -la .yarn/
-          echo
-          echo Files in .devops
-          ls -la .devops
-          echo
-          echo Files in node_modules
-          ls -la node_modules
+      # - name: Print post random
+      #   run: |
+      #     echo Version
+      #     cat version
+      #     echo
+      #     echo Files in root
+      #     ls -la
+      #     echo
+      #     echo Files in cache
+      #     ls -la .yarn/cache
+      #     echo
+      #     echo Files in .yarn
+      #     ls -la .yarn/
+      #     echo
+      #     echo Files in .devops
+      #     ls -la .devops
+      #     echo
+      #     echo Files in node_modules
+      #     ls -la node_modules
 
-      - name: Save cache
-        uses: actions/cache/save@v4
-        if: steps.load-cache.outputs.cache-hit != 'true'
-        id: save-cache
-        with:
-          path: |
-            .yarn/**
-            node_modules/**
-          key: ${{ steps.load-cache.outputs.cache-primary-key }}          
+      # - name: Save cache
+      #   uses: actions/cache/save@v4
+      #   if: steps.load-cache.outputs.cache-hit != 'true'
+      #   id: save-cache
+      #   with:
+      #     path: |
+      #       .yarn/**
+      #       node_modules/**
+      #     key: ${{ steps.load-cache.outputs.cache-primary-key }}          
   
