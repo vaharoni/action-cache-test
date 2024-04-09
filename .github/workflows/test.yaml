@@ -19,6 +19,7 @@ jobs:
 
       - name: debug_print
         run: |
+          yarn set version 4.1
           yarn --version
 
 
